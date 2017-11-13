@@ -3,6 +3,8 @@
 #include<string.h>
 #include<unistd.h>
 #include<fcntl.h>
+#include<openssl/aes.h>
+#include<openssl/rand.h>
 //#include<pthread.h>
 #include<sys/types.h>
 #include<sys/socket.h>
@@ -21,6 +23,20 @@ typedef struct sthread_param{
   int cli_sockfd;
   struct sockaddr_in ssh_serv_addr;
 }sthread_param;
+
+typedef struct ctr_state{
+  unsigned char ivec[AES_BLOCK_SIZE];
+  unsigned int num;
+  unsigned char ecount[AES_BLOCK_SIZE];
+}ctr_state;
+
+int init_ctr(ctr_state *state, const unsigned char iv[16])
+{
+  state->num = 0;
+  memset(state->ecount, 0, AES_BLOCK_SIZE);
+  memset(state->ivec + 8, 0, 8);
+  memcpy(state->ivec, iv, 8);
+}
 
 int main(int argc, char **argv)
 {
@@ -237,21 +253,26 @@ void server(char *ps_port, char *dst, char *dst_port)
   if (ssh_sockfd < 0)
     error("Error in opening socket\n");
 	
-  if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
+  /*if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
     error("Error connecting to ssh server\n");
 
-  //flags = fcntl(ssh_sockfd, F_GETFL);
   fcntl(ssh_sockfd, F_SETFL, fcntl(ssh_sockfd, F_GETFL) | O_NONBLOCK);  
-
+*/
   fprintf(stdout, "main process - step6\n");
   while(1)
-  { 
+  {
+    fprintf(stdout, "waiting for client connection...\n"); 
     cli_sockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
     if(cli_sockfd < 0)
       error("Error in accepting client connection\n");
     
     fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
-    fcntl(cli_sockfd, F_SETFL, fcntl(cli_sockfd, F_GETFL) | O_NONBLOCK);  
+    fcntl(cli_sockfd, F_SETFL, fcntl(cli_sockfd, F_GETFL) | O_NONBLOCK);
+
+    if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
+      error("Error connecting to ssh server\n");
+
+    fcntl(ssh_sockfd, F_SETFL, fcntl(ssh_sockfd, F_GETFL) | O_NONBLOCK);  
 /*    else
     {
       param = (sthread_param *)malloc(sizeof(sthread_param));
@@ -272,7 +293,7 @@ void server(char *ps_port, char *dst, char *dst_port)
       while((n1 = read(cli_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
         flag=1;
-        fprintf(stdout, "received buffer %s\n", buffer);
+//        fprintf(stdout, "received buffer %s\n", buffer);
         write(ssh_sockfd, buffer, n1);
         if(n1 < BUFFER_SIZE-1)
           break;
@@ -281,7 +302,7 @@ void server(char *ps_port, char *dst, char *dst_port)
       bzero(buffer, BUFFER_SIZE);
       while((n2 = read(ssh_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
-        fprintf(stdout, "read from ssh socket %s\n", buffer);
+//        fprintf(stdout, "read from ssh socket %s\n", buffer);
         write(cli_sockfd, buffer, n2);
         if(n2 < BUFFER_SIZE-1)
           break;
