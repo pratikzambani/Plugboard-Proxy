@@ -81,9 +81,9 @@ int main(int argc, char **argv)
   //printf("%d %s %s %s %s\n", argc, argv[0], key_file, dst, dst_port);
   
   if (server_mode == 0)
-    client(dst, dst_port);
+    client(dst, dst_port, key_file);
   else
-    server(ps_port, dst, dst_port);
+    server(ps_port, dst, dst_port, key_file);
 }
 /*
 void *sthread_execution(void *param_ptr)
@@ -149,7 +149,7 @@ void error(char *msg)
   pthread_exit(NULL);
 }*/
 
-void client(char *dst, char *dst_port)
+void client(char *dst, char *dst_port, char *key_file)
 {
   int sockfd, portno, n1, n2;
   struct sockaddr_in serv_addr;
@@ -174,50 +174,106 @@ void client(char *dst, char *dst_port)
   serv_addr.sin_port = htons(portno);
   if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
   {
-    error("Error connecting to server");
+    error("Error connecting to server\n");
   }
 
   fcntl(STDIN_FILENO, F_SETFL, fcntl(STDIN_FILENO, F_GETFL) | O_NONBLOCK);
   fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
 
+  ctr_state state;
+  unsigned char iv[8];
+  unsigned char enc_key[16];
+  AES_KEY aes_key;
+
+  FILE *key_f = fopen(key_file, "rb");
+  if(key_f == NULL)
+  {
+    fclose(key_f);
+    error("Error in opening key file\n");
+  }
+
+  if(fread(enc_key, 1, AES_BLOCK_SIZE, key_f) != 16)
+    error("Error in reading key file\n");
+
+  fprintf(stdout, "enc key is %s\n", enc_key);
+  if(AES_set_encrypt_key(enc_key, 128, &aes_key) < 0)
+    error("Could not set encryption key.\n");
+  
   while(1)
   {
     bzero(buffer, BUFFER_SIZE);
     while((n1 = read(STDIN_FILENO, buffer, BUFFER_SIZE-1)) > 0)
     {
-      //fprintf(stdout, "%s\n", buffer);
+      if(!RAND_bytes(iv, 8))
+        error("Error in generating random bytes\n");
       //bzero(buffer, 256);
       //fgets(buffer, 255, stdin);
-      write(sockfd, buffer, n1);
+      char *ivcipher = (char *)malloc(n1+8);
+      unsigned char ciphertext[n1];
+      
+      memcpy(ivcipher, iv, 8);
+      init_ctr(&state, iv);
+      AES_ctr128_encrypt(buffer, ciphertext, n1, &aes_key, state.ivec, state.ecount, &state.num);
+      memcpy(ivcipher+8, ciphertext, n1);
+      write(sockfd, ivcipher, n1+8);
+      free(ivcipher);
       if(n1 < BUFFER_SIZE-1)
         break;
-    }
-  
+    }  
     bzero(buffer, BUFFER_SIZE);
     while((n2 = read(sockfd, buffer, BUFFER_SIZE-1)) > 0)
     {
+      if(n2 < 8)
+      {
+        close(sockfd);
+        error("Received buffer length less than 8\n");
+      }
       //n = read(sockfd, buffer, 255);
       //if(n < 0)
       //{
       //  error("Error in reading from socket");
       //}
-      write(STDOUT_FILENO, buffer, n2);
+      unsigned char plaintext[n2-8];
+      memcpy(iv, buffer, 8);
+      init_ctr(&state, iv);
+      AES_ctr128_encrypt(buffer+8, plaintext, n2-8, &aes_key, state.ivec, state.ecount, &state.num);
+      write(STDOUT_FILENO, plaintext, n2-8);
       if(n2 < BUFFER_SIZE-1)
         break;
     }
+    if(n2 == 0)
+      break;
   }
 }
 
-void server(char *ps_port, char *dst, char *dst_port)
+void server(char *ps_port, char *dst, char *dst_port, char *key_file)
 {
   int sockfd, ssh_sockfd, cli_sockfd, portno, ssh_portno, clilen, n1, n2, flags;
   char buffer[BUFFER_SIZE];
   struct sockaddr_in serv_addr, cli_addr, ssh_serv_addr;
   struct hostent *ssh_server;
-
-  pthread_t sthread;
-  sthread_param *param;
   
+  ctr_state state;
+  unsigned char iv[8];
+  unsigned char enc_key[16];
+  AES_KEY aes_key;
+
+  FILE *key_f = fopen(key_file, "rb");
+  if(key_f == NULL)
+  {
+    fclose(key_f);
+    error("Error in opening key file\n");
+  }
+
+  if(fread(enc_key, 1, AES_BLOCK_SIZE, key_f) != 16)
+    error("Error in reading key file\n");
+
+  fprintf(stdout, "enc key is %s\n", enc_key);
+  if(AES_set_encrypt_key(enc_key, 128, &aes_key) < 0)
+  {
+    error("Could not set encryption key.\n");
+  }
+
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if (sockfd < 0)
     error("Error in opening socket\n");
@@ -303,9 +359,19 @@ void server(char *ps_port, char *dst, char *dst_port)
 //      fprintf(stdout, "while loop..\n");
       while((n1 = read(cli_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
-        flag=1;
 //        fprintf(stdout, "received buffer %s\n", buffer);
-        write(ssh_sockfd, buffer, n1);
+        if(n1 < 8)
+        {
+          close(cli_sockfd);
+          close(ssh_sockfd);
+          error("received buffer length is less than 8\n");
+        }
+        unsigned char plaintext[n1-8];
+
+        memcpy(iv, buffer, 8);
+        init_ctr(&state, iv);
+        AES_ctr128_encrypt(buffer+8, plaintext, n1-8, &aes_key, state.ivec, state.ecount, &state.num);        
+        write(ssh_sockfd, plaintext, n1-8);
         if(n1 < BUFFER_SIZE-1)
           break;
       }
@@ -314,8 +380,18 @@ void server(char *ps_port, char *dst, char *dst_port)
       bzero(buffer, BUFFER_SIZE);
       while((n2 = read(ssh_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
+        if(!RAND_bytes(iv, 8))
+          error("Error in generating random bytes\n");
 //        fprintf(stdout, "read from ssh socket %s\n", buffer);
-        write(cli_sockfd, buffer, n2);
+        char *ivcipher = (char *)malloc(n2+8);
+        unsigned char ciphertext[n2];
+
+        memcpy(ivcipher, iv, 8);
+        init_ctr(&state, iv);
+        AES_ctr128_encrypt(buffer, ciphertext, n2, &aes_key, state.ivec, state.ecount, &state.num);
+        memcpy(ivcipher+8, ciphertext, n2);
+        write(cli_sockfd, ivcipher, n2+8);
+        free(ivcipher);
         if(n2 < BUFFER_SIZE-1)
           break;
       }
