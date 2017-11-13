@@ -249,30 +249,40 @@ void server(char *ps_port, char *dst, char *dst_port)
   //ssh_serv_addr.sin_addr.s_addr = ;
   ssh_serv_addr.sin_port = htons(ssh_portno);
   
-  ssh_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  /*ssh_sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if (ssh_sockfd < 0)
     error("Error in opening socket\n");
-	
+*/	
   /*if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
     error("Error connecting to ssh server\n");
 
   fcntl(ssh_sockfd, F_SETFL, fcntl(ssh_sockfd, F_GETFL) | O_NONBLOCK);  
 */
   fprintf(stdout, "main process - step6\n");
-  while(1)
+  while((cli_sockfd = accept(sockfd, (struct sockaddr *)&cli_addr, (socklen_t *)&clilen)))
   {
-    fprintf(stdout, "waiting for client connection...\n"); 
-    cli_sockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-    if(cli_sockfd < 0)
-      error("Error in accepting client connection\n");
+    //fprintf(stdout, "waiting for client connection...\n"); 
+    //cli_sockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+    fprintf(stdout, "cli_sockfd - %d\n", cli_sockfd);
+    //if(cli_sockfd < 0)
+      //error("Error in accepting client connection\n");
     
-    fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
-    fcntl(cli_sockfd, F_SETFL, fcntl(cli_sockfd, F_GETFL) | O_NONBLOCK);
+//    fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
+//    fcntl(cli_sockfd, F_SETFL, fcntl(cli_sockfd, F_GETFL) | O_NONBLOCK);
 
-    if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
-      error("Error connecting to ssh server\n");
+    if(cli_sockfd != -1)
+    {
+      fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
+      fcntl(cli_sockfd, F_SETFL, fcntl(cli_sockfd, F_GETFL) | O_NONBLOCK);
+     
+      ssh_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+      if (ssh_sockfd < 0)
+        error("Error in opening socket\n");
+      if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
+        error("Error connecting to ssh server\n");
 
-    fcntl(ssh_sockfd, F_SETFL, fcntl(ssh_sockfd, F_GETFL) | O_NONBLOCK);  
+      fcntl(ssh_sockfd, F_SETFL, fcntl(ssh_sockfd, F_GETFL) | O_NONBLOCK);
+    }
 /*    else
     {
       param = (sthread_param *)malloc(sizeof(sthread_param));
@@ -284,12 +294,13 @@ void server(char *ps_port, char *dst, char *dst_port)
       pthread_detach(sthread);
     }*/
     int flag=0;
-    while(1)
+    fprintf(stdout, "going inside while loop ssh_sockfd is %d cli_sockfd is %d sockfd is %d\n", ssh_sockfd, cli_sockfd, sockfd);
+    while(cli_sockfd != -1)
     { 
 //      fprintf(stdout, "before client read...\n");
       flag=0;   
       bzero(buffer, BUFFER_SIZE);
-      //fprintf(stdout, "while loop..\n");
+//      fprintf(stdout, "while loop..\n");
       while((n1 = read(cli_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
         flag=1;
@@ -298,7 +309,8 @@ void server(char *ps_port, char *dst, char *dst_port)
         if(n1 < BUFFER_SIZE-1)
           break;
       }
-//      fprintf(stdout, "before ssh read...\n");
+//      if(n1 != 0 && n1 != -1)
+//        fprintf(stdout, "before ssh read... n1 = %d\n", n1);
       bzero(buffer, BUFFER_SIZE);
       while((n2 = read(ssh_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
@@ -307,7 +319,15 @@ void server(char *ps_port, char *dst, char *dst_port)
         if(n2 < BUFFER_SIZE-1)
           break;
       }
+      if(n1 == 0)
+      {
+        //close(sockfd);
+        //close(cli_sockfd);
+	close(ssh_sockfd);
+        break;
+      }
     }
+    fprintf(stdout, "coming out of while loop\n");
   }
   return;
 }
