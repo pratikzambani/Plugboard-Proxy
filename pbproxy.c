@@ -3,7 +3,7 @@
 #include<string.h>
 #include<unistd.h>
 #include<fcntl.h>
-#include<pthread.h>
+//#include<pthread.h>
 #include<sys/types.h>
 #include<sys/socket.h>
 #include<netinet/in.h>
@@ -215,10 +215,12 @@ void server(char *ps_port, char *dst, char *dst_port)
       pthread_create(&sthread, NULL, sthread_execution, &param);
       pthread_detach(sthread);
     }*/
+    int flag=0;
     while(1)
-    {    
+    { 
+      flag=0;   
       bzero(buffer, BUFFER_SIZE);
-      fprintf(stdout, "while loop..\n");
+      //fprintf(stdout, "while loop..\n");
       while((n = read(clisockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
         flag=1;
