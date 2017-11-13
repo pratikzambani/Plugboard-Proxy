@@ -18,7 +18,7 @@ void server();
 void *sthread_execution(void *param);
 
 typedef struct sthread_param{
-  int clisockfd;
+  int cli_sockfd;
   struct sockaddr_in ssh_serv_addr;
 }sthread_param;
 
@@ -69,7 +69,58 @@ int main(int argc, char **argv)
   else
     server(ps_port, dst, dst_port);
 }
+/*
+void *sthread_execution(void *param_ptr)
+{
+  fprintf(stdout, "started new thread\n");
+  int n, ssh_sockfd, cli_sockfd, flags;
+  char buffer[BUFFER_SIZE];
+  struct sockaddr_in ssh_serv_addr;
+  sthread_param *param;
 
+  param = (sthread_param *)param_ptr;
+  cli_sockfd = param->clisockfd;
+  ssh_serv_addr = param->ssh_serv_addr;
+  bzero(buffer, BUFFER_SIZE);
+   
+  fprintf(stdout, "thread - step1\n");
+  ssh_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if (ssh_sockfd < 0)
+    thread_error("Error in opening socket\n");
+ 
+  fprintf(stdout, "thread - step2\n");
+  if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
+  {
+    thread_error("Error connecting to ssh server\n");
+  }
+  flags = fcntl(cli_sockfd, F_GETFL);
+  fcntl(cli_sockfd, F_SETFL, flags | O_NONBLOCK);
+  flags = fcntl(ssh_sockfd, F_GETFL);
+  fcntl(ssh_sockfd, F_SETFL, flags | O_NONBLOCK);  
+  fprintf(stdout, "thread - step3 cli_sockfd %d \n", cli_sockfd);
+  while(1)
+  {
+    //fprintf(stdout, "thread - while looping...\n");
+    bzero(buffer, BUFFER_SIZE);
+    while((n = read(cli_sockfd, buffer, BUFFER_SIZE-1)) > 0)
+    {
+      fprintf(stdout, "read from cli sock %s\n", buffer);
+      write(ssh_sockfd, buffer, strlen(buffer));
+      if(n < BUFFER_SIZE-1)
+        break;
+    }
+    bzero(buffer, BUFFER_SIZE);
+    while((n = read(ssh_sockfd, buffer, BUFFER_SIZE-1)) > 0)
+    {
+      fprintf(stdout, "read from ssh sock %s\n", buffer);
+      write(cli_sockfd, buffer, strlen(buffer));
+      if(n < BUFFER_SIZE-1)
+        break;
+    }
+  }
+  fprintf(stdout, "thread - step4\n");
+}
+*/
 void error(char *msg)
 {
   perror(msg);
@@ -144,7 +195,7 @@ void client(char *dst, char *dst_port)
 
 void server(char *ps_port, char *dst, char *dst_port)
 {
-  int sockfd, clisockfd, portno, ssh_portno, clilen, n;
+  int sockfd, ssh_sockfd, cli_sockfd, portno, ssh_portno, clilen, n, flags;
   char buffer[BUFFER_SIZE];
   struct sockaddr_in serv_addr, cli_addr, ssh_serv_addr;
   struct hostent *ssh_server;
@@ -202,8 +253,8 @@ void server(char *ps_port, char *dst, char *dst_port)
   fprintf(stdout, "main process - step6\n");
   while(1)
   { 
-    clisockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-    if(clisockfd < 0)
+    cli_sockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+    if(cli_sockfd < 0)
       error("Error in accepting client connection\n");
 /*    else
     {
@@ -221,7 +272,7 @@ void server(char *ps_port, char *dst, char *dst_port)
       flag=0;   
       bzero(buffer, BUFFER_SIZE);
       //fprintf(stdout, "while loop..\n");
-      while((n = read(clisockfd, buffer, BUFFER_SIZE-1)) > 0)
+      while((n = read(cli_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
         flag=1;
         fprintf(stdout, "received buffer %s\n", buffer);
@@ -231,7 +282,7 @@ void server(char *ps_port, char *dst, char *dst_port)
       if(flag == 1)
       {
         fprintf(stdout, "writing...\n");
-        n = write(clisockfd, "hehe\n", 5);
+        n = write(cli_sockfd, "hehe\n", 5);
       
         if(n < 0)
           error("Error in writing to socket\n");
@@ -241,53 +292,3 @@ void server(char *ps_port, char *dst, char *dst_port)
   return;
 }
 
-void *sthread_execution(void *param_ptr)
-{
-  fprintf(stdout, "started new thread\n");
-  int n, ssh_sockfd, cli_sockfd, flags;
-  char buffer[BUFFER_SIZE];
-  struct sockaddr_in ssh_serv_addr;
-  sthread_param *param;
-
-  param = (sthread_param *)param_ptr;
-  cli_sockfd = param->clisockfd;
-  ssh_serv_addr = param->ssh_serv_addr;
-  bzero(buffer, BUFFER_SIZE);
-   
-  fprintf(stdout, "thread - step1\n");
-  ssh_sockfd = socket(AF_INET, SOCK_STREAM, 0);
-  if (ssh_sockfd < 0)
-    thread_error("Error in opening socket\n");
- 
-  fprintf(stdout, "thread - step2\n");
-  if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
-  {
-    thread_error("Error connecting to ssh server\n");
-  }
-  flags = fcntl(cli_sockfd, F_GETFL);
-  fcntl(cli_sockfd, F_SETFL, flags | O_NONBLOCK);
-  flags = fcntl(ssh_sockfd, F_GETFL);
-  fcntl(ssh_sockfd, F_SETFL, flags | O_NONBLOCK);  
-  fprintf(stdout, "thread - step3 cli_sockfd %d \n", cli_sockfd);
-  while(1)
-  {
-    //fprintf(stdout, "thread - while looping...\n");
-    bzero(buffer, BUFFER_SIZE);
-    while((n = read(cli_sockfd, buffer, BUFFER_SIZE-1)) > 0)
-    {
-      fprintf(stdout, "read from cli sock %s\n", buffer);
-      write(ssh_sockfd, buffer, strlen(buffer));
-      if(n < BUFFER_SIZE-1)
-        break;
-    }
-    bzero(buffer, BUFFER_SIZE);
-    while((n = read(ssh_sockfd, buffer, BUFFER_SIZE-1)) > 0)
-    {
-      fprintf(stdout, "read from ssh sock %s\n", buffer);
-      write(cli_sockfd, buffer, strlen(buffer));
-      if(n < BUFFER_SIZE-1)
-        break;
-    }
-  }
-  fprintf(stdout, "thread - step4\n");
-}
