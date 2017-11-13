@@ -185,6 +185,19 @@ void server(char *ps_port, char *dst, char *dst_port)
   bcopy((char *)ssh_server->h_addr, (char *)&ssh_serv_addr.sin_addr.s_addr, ssh_server->h_length);
   //ssh_serv_addr.sin_addr.s_addr = ;
   ssh_serv_addr.sin_port = htons(ssh_portno);
+  
+  ssh_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if (ssh_sockfd < 0)
+    error("Error in opening socket\n");
+	
+  if (connect(ssh_sockfd, (struct sockaddr *)&ssh_serv_addr, sizeof(ssh_serv_addr)) < 0)
+  {
+    error("Error connecting to ssh server\n");
+  }
+  flags = fcntl(cli_sockfd, F_GETFL);
+  fcntl(cli_sockfd, F_SETFL, flags | O_NONBLOCK);
+  flags = fcntl(ssh_sockfd, F_GETFL);
+  fcntl(ssh_sockfd, F_SETFL, flags | O_NONBLOCK);  
 
   fprintf(stdout, "main process - step6\n");
   while(1)
@@ -202,11 +215,9 @@ void server(char *ps_port, char *dst, char *dst_port)
       pthread_create(&sthread, NULL, sthread_execution, &param);
       pthread_detach(sthread);
     }*/
-    int flag=1;
     while(1)
     {    
       bzero(buffer, BUFFER_SIZE);
-      flag=0;
       fprintf(stdout, "while loop..\n");
       while((n = read(clisockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
