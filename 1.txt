@@ -1,0 +1,110 @@
+connected to server...
+sending iv - œÄFª¸òÿJ
+sending encrypted data - nÊ)€×aF,Ïí¢Ö­X¹æÊ E¢”[›~”S´	kâJ/Ğƒ@
+received encryped - á–—
+received encryped - ÏÄñ¥DÉ}ãİRp\iğ 4wP™>ÓAîC$;97¯GÔ[n
+sending encrypted data - ÅÁúd·ÒÛŞ"{°%…ıEù+e²D'¡ø,¥ecÂ¥	ÅÆf}Ø‹“w8Yî³J/ôlbs:¥¾>Æ™ÅláwA¥Şè8	0Zt4«v[]«ç=ïjvwZO@Æ")%ØŞÇêÛ<R¹ùã±¯ëó«¸ø‰a&dKI`"†h‹÷ä”¨2EŒ/Ç"@’A×¼X¼/\3k`ÆID9qw]QBË—t_$^Œ§h[¿3aXÁñeœË®7Æg’6œaRlŠb7_‡æ~›GW`6½†€³³Ùkè
+LK£F‚À«oôğ):ˆoœmUX¥ù/+nZ×`³bˆ¨DP™=Š\ #Xì8KĞ™³t9<ˆ8<È‡³M½Òm›R_áßaÒ	ı##]š=‘öŸJĞg•nJÏAG•C^ßf¡¢Rœ¯º¡jI@çšØ§P×K¯¹ÕCPÛÛ×ú?Oİâr {‰a:®ÛDwÌËñkêÌ)E>DıÄ*q¬]aäcÖ®/äjMg`[ı(áÿß€bYé÷ä!5<S‡•ü­Á8×Ãl”’ PşŸ/Û!Œ;¾!*$b¼rzvßõÂäÛAO
+®Á'8°ZÇ+|ZG „ïr2œN.‡%GğêåwÍ™Ø­k­±Ù²î³ÙÔÌúû1É„‹ûÄ1EğbÓJ”é[´W
+tùÉ»üÃ/@ÈÀwH˜•ÆÁc1T ƒGŞZ.çæğàbÁ69UÓ8âqãVU€ç~èo‹zqÌHÁJ4<_j9ï¼wS@ıŸ-!ËÈLhW"¦1v³<ƒ=‹yi—Ğ¯tô7[Ä%™–÷6¬¥º¤¸ëáÑı€Wğ$‡	İ#Ÿ!DW—qN±„öŠrb˜TéÕÓ|VkK›¥İz>ááÏfËµ¡?Í{×².ïD•U$—Ëøİ•’dG†ƒaÓ.ÚmA–"gíá—=Æ#àÔ#¨˜eÔ!DŒğM&Ù§ ¤‰*Q9ù¯¾>Á"¤3Ñ‡"ÃBNåÙ4¼„GGƒäŠ€áÊi!A*n‹kµQiÁ¡.|û—!Á›(mKl!}Ÿr—ó¿”¨8QÂ|˜tÊå¹-+qÍ·ƒ”˜R	òå¯ö9Zï¾ôwcîé¾6c´y7BtUš°Zcgß
+ÀN¦¼w+#ÓjÚ”€ícáUË×¢2a½¬\Ä«hŒëaıZ1¸vÓÅåG§aJ½¥È>,“•EÕ•nAş$"o6•ÔOPjÑˆdğ¸Í˜6Ïl™–”8!§™÷!Åê Y¹Òº&—+=ròâ(L¬‚uäeo#¶ü¥¸ĞŠ‡˜àßQ:$Í¾õCãP¸ÀÚ×˜ş3ŸRİY6kËi£@&ñRMO®%Šª>]ıy%…”(fü ç.d·¨q`ÚÄ·
+W-Ûï• ™å½Á`„[´ŞÒı¨Yì ±äœCMÇ¹‘ªıæ‘Ãs9ñ)Ë+²İœ²¦ÌŞàlĞ!¯üÇ ¡¬ŸqäG·ÉàµSWİ¢ø
+received encryped - z{x(—DU¿"<(K„ëF2à³9×ªHméP<.v2>f…ãBW½mó–İUüiîù;¸æbZFµú70R}<ì˜çˆé@Ÿøh`ÀœĞHQæ9ùG£.
+sending encrypted data - L“i†äšØ<OyBb~jl
+sending encrypted data - rÆsoLÇ­àõ
+received encryped - 6§Açæäó[±Y“<ÜQ¤ß‡‰­F¬¿¹¶#‡°áj¼Ï¾ëœ,eâ
+sending encrypted data - ‡G%(tM®ğM=‚pÄ„ÀS†¥:åÄ ‹4Ùä•úèè¨tÛG–%eË@æË8ÈÈ@'bÙxj«@[c¨‘é9BäÉæ'½vQêz@
+received encryped - Ú³rWÂ‰V]JfÒuà`BÚ¸,l·â,Š±Ë}z{p¶"¯‡æ¢è n>X*Ùşi%
+sending encrypted data - iXwAÆ’
+Ó>aÍ[ú30\›a¡[ÖXšYÍ„şĞbòõ
+?h»†ë“iÀrk[E”¾eD•ú˜Z¦Êa#Z-ânüa^Ä¿™Æm{]Ù”<õû¥"û:üÏËmĞ,ˆAp€ÚÊTŞIşÉ®¬&X’ObDürn‹õ\Tµ\*j-®ÃÃÿ¤'dŞå
+received encryped - fKK'oGíSC¡ïŸ8RÊLÎÕ&KÏw`fÚ‰–Í„P^¦Ÿ#õÅ\U»ñ
+sending encrypted data - 8,W‘
+T/ô2‡ŞË¦mK2(QĞ˜HÀG¸­
+received encryped - Õù«İé£sQ#@N:HÓ‹¼	4COánRré„
+sending encrypted data - `.g>öùlĞRÉmæÚ²•ÙóA”.¶´¨¦Bv•¦/ıå
+¹” l…ì Ëˆ*5|à ïgÂ7ã|¡pyté&Ü›õËRQ¾¡n\êZú,®@+9Záb+oYLŠáâ¦(¥¬Şe
+received encryped - ÀÒ‹åŞ’hl ¡Åäß%?U	±‘väÛ=>§"ß^Ï+â¸,‚…ÕÛgdÇÅ2Ooâì¿j˜(¬÷‰¶r‹şª¡ôTô. ±ÕĞº\HĞu÷o	_î—Búo²Šet_3»D?ÅùúãsJRÆAy¹]Œh\‘/l‡q1¤°^(Íå&Ë¤í2gc¤/±ÿ,.ÇÊI(†Œ–üÁ¥w¨ ÜQGzp<ù¨Ô´¿(ÆûÈÿ-PŞ\='â¡†mâÛ¨”äÏ§$Ëy
+received encryped - [yú$cmH9pjÄRïç†ıj;"Bß"6ãz/é6/AVWöC0¸'V
+sending encrypted data - íll"çÂg7£HÉ’J¤ÆAóº=³~‡©îw1åÕ%f÷d%R˜óŸqÍdo½—‹!I`‘¤Í¦Àf#Öw½}‘g4.'!q¤\ª/…lî¾v£‰Æ÷>ÈA.î Æucœ%E¡{vPâŒ×ª5jM¹*iÊ!¾$7xBÍ\¯¼©óåã;ÓVãN:dÚô=
+received encryped - wÒí†q³r%³n»WÄq3E¬6†°"5¯“cÍG8:ˆĞà.í¤/\§m•rÏ™¦‰›¯£§áQiùjZªD¹+T»ßZº7
+received encryped - ”ŠÜÂgÉÖ_•ÕÀ*aîüR
+(Õ)b µeË&‡-ÏU9#şÕKAvæä?4ı±.Ë¬@n
+Q5°_}q]t4·\»ÿ:É¤)}~ºÚììÜë+Î²‹üóıËB"ìbˆ,zÂrk—/kl¿tA2:$yvª~k7“*•q‚ı4fŞ)¯g¦#A¢qj^İç
+sending encrypted data - ÀûH1MS^J?¿Ê9Ô’/8á£%Ğ+6HÛ9¡íâ´}üÿ-z@
+received encryped - ­?˜¾ü]dàpZ¢½ÓK:{”µêÀ÷‹²«Ä—¿ó¯Yˆ‰?a)ØŠÈW„Ô·>úš¤C„ùÁÆ}›Ä¤Z„L”ÜÀÄªO	5%Á-ôrÃ9At—à’J"»1şq!µ¸¶Jæ÷ß˜ÎbiÒzß2p*»ˆu×™™1höœ¦\@ÔocçûBÇ88ÄŸ1
+sending encrypted data - ëõ™¤›ŒwÌà0Èåõ23>êÜÈ¬Ì2â‡Â¿ªÊ¶P.‡z@
+received encryped -  ºâÉ&Ê9'º“UDÉ)-^À\`ª"ø™™”W˜ÿuÓVèC¬
+sending encrypted data - „Yê3ñ²õœ¬f=–‡”qiŠ
+received encryped - :­_[Y5ƒÙì¾KpÔ(N”Ğ†–“Ã6<ŞDä
+sending encrypted data - Ñ\u,²æK%2øöÊj4ë°$›<oí µ¤½p¾aJHæ€şP.‡z@
+received encryped - Ë¸Œ¥øMDg2ı1
+Ã¹4+cZO)¿ŠŞ’*à|­û…É8SDXòú%E2ÎZwhˆR|8şù`}•62°Ûfr;Ôü¸V,Ğ$ú¬NG*ğt²Dw·M	qbqŞ®†êSif™Ò.[ü§ÓUız“»†R™ÚOøëX»ËÄšMÆ¨z«÷¬%ñhìÖÊ°^ÄàÁ/ÎcØK>²ßiC
+sending encrypted data - ›LEé%²ià;vQ68oœójRB|ïxdÔÕ¾5rÉÃ·«„)'z@
+received encryped - ú¡´«àÉV±š—D¨¢wV1Í]SÔéßtmÛò"½$ì
+sending encrypted data - qviÆd:PzóV¶ıÒŸ•|ÖYçı=zÓüy-áÏ¶»áĞ«„)'z@
+received encryped - _(‘ÂÍ
+ı5GÉ¿ÖOP8¤_#d%0•FWâû(*VoÛêb
+sending encrypted data - M -@Œæµ%( °ÓSv*Ås+©y_ö…‰çO,Ë—›&\$«„)'z@
+received encryped - .º™Ä_Ô´ïY¸2y­uÎ…ğ(;PˆÔŸ¾¹Õ°x¥Â¨¨Şq—
+sending encrypted data - Ù{ä—è%<Éï™›qèAØd9"-ïû‡@^Ú£“¡i]ìÛz@
+received encryped - çÍea©½DøoõÑ»Ï‚Âät|í† ø¸œî{ÉÿCŠ¤iâcªÖ[Ñsá
+sending encrypted data - ^Ê÷ÏfqG²1¿È	åÑ4Ñ&O
+received encryped - ¹ÚPäÌª}óÌ›œø0[ãfÔûâ¥úüZzÖ 	Q{«Lo6
+sending encrypted data - Nê« è2şr¯oÕ|3én™­;3SAŞîEYxÙ„=.ĞØE/[<Üz@
+received encryped - œı€wò„$¢{CWë
+=‡ZÒì<ŠøÜıÙ·Â”
+sending encrypted data - ÇFæ¡x¸ÃG–f;¢“æ…¨ù#jêàèK\Á¢l>/[<Üz@
+received encryped - ÛõÌ¬ñyT?Ãr4]¸¢îí	XD}/ğªoıƒê³‘GOÒğ
+sending encrypted data - Ÿ8šü]Õ‚j²å"]Ü„]Ÿ0“¾=hu“¦é-Ä>Oğ½/[<Üz@
+received encryped - ÉÔæ§Õı;EÃ0ûİ…ùŞÏÅíüG9JH‚â$¦W
+sending encrypted data - ¦fH„`‚ÀÃ„s¿¦‹C1GFlÏìâ:hÈH»Š’ã‘q/[<Üz@
+received encryped - × àY‘k0Ù—£è<»vMÃŒø–œ‹ì˜}ÍÛ?
+sending encrypted data - 0ïÆ7
+6ğmÌtÒüï‚áû_¦6dkÊ6ö½¢ÓmÁ†‚ıÆ/[<Üz@
+received encryped - D…»èEb¦u¤ZlFEİèYê…VôEÁÁ4÷!›
+qÀ
+sending encrypted data - 3aûúçĞÜ¤•ŠŒ±ÏµT¶’MBW0à))Ù,Ì\yÓÁ
+received encryped - U³ƒïø«¥Ã‰
+sending encrypted data - ;'$¿ñ®i€uº¾„ÔÑÏs¹ ÄU•$F .¨mU`¢ôƒ/[<Üz@
+received encryped - Á«Fb“£ĞîÎæ=­MğÂÄjdLÊ
+‡RBE¸oŠ¦Xª
+sending encrypted data - ñƒc<†—9÷G®¸¨G³©İ-ŠÓ€Öe®Eá­ÿœÅ«/[<Üz@
+received encryped - M{¢1ÕÎg÷dçÙx¤CJéÿ‡Ğc»—´ãÊ¿Ê‘½›’LMÌõõşÃÏ¦)1U–[á
+sending encrypted data - ¯-|‘ë¤¾ß\§s;OîÚ¬ÖDsj"¾ú3cªy/[<Üz@
+received encryped - ŸÍ‰MúmQÓwi}$:/.hvææ¯=Ígç·Q˜GU<X)ĞŒx,~6=,³Îá_¹æz¿@„È,jbÅ·^ã ³1z9Ü‡ŒoZ€ª¶€£cóâÁXe!^…‘5´X]ºDAU¿à×\®4œ™D†k±“³Šó*–ÔüÌøÂÛ~1pN¾ï¬/	
+sending encrypted data - SË†çØ¾E÷ÇË¯¤šÅ;d*
+received encryped - ^`)I|Íqû/ŠÚ“Ü®³Ü)›:¼4sª÷y¸½[Ÿê¬L*=mqçVšñœ¢ yÂ6\uù¯ê(×X“¯Ì¢8ƒÂœÖĞÀ¥JWÇÃ€Ñ¹’5ü©í¥¤_0íBşì*¡æp¢ŸâOJ×¶Õøş=ds‡Ô‰63*l˜Úyv_‹uIüã#e\-SyQ‚Ç\ÑğçèßÓÂ®8À®Âì€…$bA¸ğ4†ğÒ“š¯ú:X¡
+sending encrypted data - …öš¼öŞRpc…â/ıS9<@bÔ@~AŠ[WƒÊÏU’[½Az@
+received encryped - Öê…ğAÕ7`6˜Í°Aç'â,vg»£áŞ+fî"0¸Q:²ˆ]HOÛíÚ <é€n2Å§/mmùEZ+¿qğ!ş–ŒÄ£TƒM?=xĞ¨ª1ü¼¦8ÚDÙ¥|çöOµQ˜OÔï5ÿ™x¾‰£¥ïWwÀ¤)
+sending encrypted data - Ö…Xz®qbC³…B-…µånŸîQÿdO®9Tÿ»|¦8Z{
+received encryped - Ì)C6:éü^ÓUiqP W¤Â
+sending encrypted data - MNZĞ’y|x8ôÚGh|_Zh	
+received encryped - 21¬•ï,Ki]n(•µ„+°làŠçÜÀ'øh1´Û`¼
+sending encrypted data - ÏMèdaÿ2=aøÛkÕ-¥p‰~oÊ¦§ñ¤Aï±ÁZ{
+received encryped - ²ÍóÓ6tt™{Œ9L,¬*YR ¼‘)ÙŞ Ap=şé¡
+sending encrypted data - :‡bH¶ Êã"Ğş6Gc¦¼ŸF? 4Ì˜T0WiÃ÷Ç.ñÈZ{
+received encryped - f‘›æVˆxÜëĞr=/$c€×E’5ëë®|¢>²ªÖÿ(
+sending encrypted data - 7AvC–ZVëLm—ÔvŞ	aaÕ;sÇõ
+received encryped - ÷L©¸œEVQeÇÎ»}íÑ£‰YBe–¼SìoãÏŠN
+sending encrypted data - ‚ˆdÎÒ¡:3§EˆøÃñ§{àûE@'ŸäH‹zıA‰¨¿Í¤µşZ{
+received encryped - ¼.·ô-¢+ÔôK‘üPk_ïØ~…èºAûgèçvU«R‡¿eÖ„‚¬X¸+Yx÷!^»¿‡áS¥i÷&öŸ{¶ÏÖ¸m}Î—¥n¶ŒÃ¼C“u¦õ°^7àac,%P£–Ëôö5²Ï¢ş¦SS4%ƒó—¹‹Ví½ßÄÀøVw\¶ğ ¯ú™LOù«™¸hÜÜ!	NGß¸)ù2¥öñZèÏ†LlC
+@·8ægUø#™Hö¹Ş Ó(ƒ’TÊk·»Qw`<®o‹ra0
+sending encrypted data - q”µÿİ“‚¤+m`xf°Ò¨.İ<1™³I”Ÿ»5SİòFl‡=¸z@
+received encryped - C	¯ ÂÖÙ³N§ş?pè,ÀåÈ×İrô¢6WQ­æ¡úM±
+sending encrypted data - îƒÑüDãß–ÑM4÷•
+fîâßøq>x3ßúrØP|ä)VÎl‡=¸z@
+received encryped - ˆJâUów6Üš‰_™ "›_½O
+iTêp™˜tRŠö89h
+sending encrypted data - ¾;ŒÑÇóşÖihOù’½	—E–fAcIuùÌ7_IğĞqb0l‡=¸z@
+received encryped - lü¾]_o+÷,¸FĞ°ñ’vêŠòğlİwrMgÀ¡{-dÑ-ùÉÚ¸¤jÖ‚¼"’W,òa«îfx™D&‚IzV¨Ïh¿@¡<EˆU^®©ŒÙy‰Ì¢Æ–g)löjp½ÁÌÚ'İ,—è4Ğ÷òÓ7ÆI{Ìù Ÿ:@ß»@†ĞÉ.“¼LNª°öL«,Œ*"kCÂA½
+sending encrypted data - ç!ÙtÕ98ş)]ªµ1N}É ‘W%kùhTr¥>§¸ÜìFz@
+received encryped - ”$#¹^:´NßÓèZ’,HÜ“ˆéÇlî¦êmcû˜Ê”PŞUtÛ}­Ó«ã1UæáŞ3à“ØÒQ**gšÔ.èÉgYTu:^xDÿMÔ¢(ùf•hRQ.1­TB•uEgˆ~ÏŒ 
+epd[î¼’‘
+“¿úìúè2´JË®k#“LPªiØ×Ï®…;k}t“ëæÆƒ¡ëôÑÏ4:nÛ½ú¤
+sending encrypted data - Ö;
+í1{Ìû‹Û„âü¤ô¦Ïs*(qbƒØ,Úm4†ƒ.“Œ‚hùz@
+received encryped - X€Ğ¨±¢#ŸP ì¿IÃm†øÜãÅÑ¢R™—ê›g¤>Ş)áœBzè™´&,)š?mÃ"yŞ·ÑPz0|õº4Èmi~¯8+‚AŸƒ‚éŒèËÇeJ/{ˆÁÿØ´~°xqüÃ„ƒ€99:!õ-ÂŒ–”³–»QOê+6„÷è÷ºå<³ÏZ3¦0Ê
+sending encrypted data - ¬'Íğqb½°zÔÒã†Ÿ.ù£¶Å;¹Œ_z¯$+Q8ûz@
+received encryped - ş'@J¡€N4-¨ˆ…Ó,V™²Œmı,†LŸö/MŸx†Ã
+sending encrypted data - ÖÓÒ²Ÿòm¬·ŒïĞQ´dMgØŒ}³«VÊ9UZ¦un~-X

@@ -5,7 +5,7 @@ pbproxy [-l port] -k keyfile destination port
 
   -k  Use the symmetric key contained in <keyfile> (as a hexadecimal string)
 
-Implementation details : 
+Implementation details -
 
 1. Parsing command line arguments using getopt. 
 2. Client reads from STDIN, encrypts the data using aes in ctr mode and sends it to pbproxy server. 
@@ -15,7 +15,27 @@ Implementation details :
 6. Pbproxy server receives data at ssh socket, encrypts it and sends it to client.
 7. Pbproxy listens for new client connections once established client disconnects.
 
-References 
+Machine details -
+
+cat /etc/*-release
+
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04.3 LTS"
+NAME="Ubuntu"
+VERSION="16.04.3 LTS (Xenial Xerus)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 16.04.3 LTS"
+VERSION_ID="16.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+VERSION_CODENAME=xenial
+UBUNTU_CODENAME=xenial
+
+References -
 
 1. socket programming in C - http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
 2. aes ctr - http://www.gurutechnologies.net/blog/aes-ctr-encryption-in-c/
