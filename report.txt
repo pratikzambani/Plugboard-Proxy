@@ -1,0 +1,21 @@
+pbproxy [-l port] -k keyfile destination port
+
+  -l  Reverse-proxy mode: listen for inbound connections on <port> and relay
+      them to <destination>:<port>
+
+  -k  Use the symmetric key contained in <keyfile> (as a hexadecimal string)
+
+Implementation details : 
+
+1. Parsing command line arguments using getopt. 
+2. Client reads from STDIN, encrypts the data using aes in ctr mode and sends it to pbproxy server. 
+3. Client reads on socket connection with pbproxy server for receiving encrypted responses. 
+4. Pbproxy server accepts client connection, connects to ssh, sets sockets to non blocking using fcntl for IO multiplexing.
+5. Pbproxy server listens at client socket, decrypts received data and sends it to ssh socket.
+6. Pbproxy server receives data at ssh socket, encrypts it and sends it to client.
+7. Pbproxy listens for new client connections once established client disconnects.
+
+References 
+
+1. socket programming in C - http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
+2. aes ctr - http://www.gurutechnologies.net/blog/aes-ctr-encryption-in-c/
