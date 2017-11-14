@@ -195,7 +195,7 @@ void client(char *dst, char *dst_port, char *key_file)
   if(fread(enc_key, 1, AES_BLOCK_SIZE, key_f) != 16)
     error("Error in reading key file\n");
 
-  fprintf(stdout, "enc key is %s\n", enc_key);
+  //fprintf(stdout, "enc key is %s\n", enc_key);
   if(AES_set_encrypt_key(enc_key, 128, &aes_key) < 0)
     error("Could not set encryption key.\n");
   
@@ -242,7 +242,10 @@ void client(char *dst, char *dst_port, char *key_file)
         break;
     }
     if(n2 == 0)
+    {
+      fprintf(stdout, "breaking from client side\n");
       break;
+    }
   }
 }
 
@@ -268,7 +271,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
   if(fread(enc_key, 1, AES_BLOCK_SIZE, key_f) != 16)
     error("Error in reading key file\n");
 
-  fprintf(stdout, "enc key is %s\n", enc_key);
+  //fprintf(stdout, "enc key is %s\n", enc_key);
   if(AES_set_encrypt_key(enc_key, 128, &aes_key) < 0)
   {
     error("Could not set encryption key.\n");
@@ -278,7 +281,6 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
   if (sockfd < 0)
     error("Error in opening socket\n");
 
-  fprintf(stdout, "main process - step2\n");
   bzero((char *) &serv_addr, sizeof(serv_addr));
   portno = atoi(ps_port);
   serv_addr.sin_family = AF_INET;
@@ -290,14 +292,9 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
   listen(sockfd, 5);
   clilen = sizeof(cli_addr); 
  
-  fprintf(stdout, "main process - step4\n");
   ssh_server = gethostbyname(dst);
   if (ssh_server == NULL)
-  {
     error("Error, could not find ssh server\n");
-    fprintf(stderr, "Error, could not find server\n");
-    exit(0);
-  }
   
   ssh_portno = atoi(dst_port);
   ssh_serv_addr.sin_family = AF_INET;
@@ -319,7 +316,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
   {
     //fprintf(stdout, "waiting for client connection...\n"); 
     //cli_sockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-    fprintf(stdout, "cli_sockfd - %d\n", cli_sockfd);
+    //fprintf(stdout, "cli_sockfd - %d\n", cli_sockfd);
     //if(cli_sockfd < 0)
       //error("Error in accepting client connection\n");
     
@@ -328,7 +325,8 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
 
     if(cli_sockfd != -1)
     {
-      fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
+      fprintf(stdout, "cli_sockfd - %d\n", cli_sockfd);
+      //fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
       fcntl(cli_sockfd, F_SETFL, fcntl(cli_sockfd, F_GETFL) | O_NONBLOCK);
      
       ssh_sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -349,20 +347,18 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
       pthread_create(&sthread, NULL, sthread_execution, &param);
       pthread_detach(sthread);
     }*/
-    int flag=0;
-    fprintf(stdout, "going inside while loop ssh_sockfd is %d cli_sockfd is %d sockfd is %d\n", ssh_sockfd, cli_sockfd, sockfd);
+//    fprintf(stdout, "going inside while loop ssh_sockfd is %d cli_sockfd is %d sockfd is %d\n", ssh_sockfd, cli_sockfd, sockfd);
     while(cli_sockfd != -1)
     { 
 //      fprintf(stdout, "before client read...\n");
-      flag=0;   
       bzero(buffer, BUFFER_SIZE);
 //      fprintf(stdout, "while loop..\n");
       while((n1 = read(cli_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
-        fprintf(stdout, "received buffer from client %s len -> %d\n", buffer, strlen(buffer));
+        //fprintf(stdout, "received buffer from client %s len -> %d\n", buffer, strlen(buffer));
         if(n1 < 8)
         {
-          fprintf(stdout, "buffer len < 8\n");
+          //fprintf(stdout, "buffer len < 8\n");
           close(cli_sockfd);
           close(ssh_sockfd);
           error("received buffer length is less than 8\n");
@@ -372,7 +368,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
         memcpy(iv, buffer, 8);
         init_ctr(&state, iv);
         AES_ctr128_encrypt(buffer+8, plaintext, n1-8, &aes_key, state.ivec, state.ecount, &state.num);
-        fprintf(stdout, "sending to ssh server %s len -> %d\n", plaintext, strlen(plaintext));  
+        //fprintf(stdout, "sending to ssh server %s len -> %d\n", plaintext, strlen(plaintext));  
         write(ssh_sockfd, plaintext, n1-8);
         if(n1 < BUFFER_SIZE-1)
           break;
@@ -384,7 +380,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
       {
         if(!RAND_bytes(iv, 8))
           error("Error in generating random bytes\n");
-        fprintf(stdout, "read from ssh socket %s len -> %d\n", buffer, strlen(buffer));
+        //fprintf(stdout, "read from ssh socket %s len -> %d\n", buffer, strlen(buffer));
         char *ivcipher = (char *)malloc(n2+8);
         unsigned char ciphertext[n2];
 
@@ -392,7 +388,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
         init_ctr(&state, iv);
         AES_ctr128_encrypt(buffer, ciphertext, n2, &aes_key, state.ivec, state.ecount, &state.num);
         memcpy(ivcipher+8, ciphertext, n2);
-        fprintf(stdout, "writing to client %s len -> %d\n", ivcipher, strlen(ivcipher));
+        //fprintf(stdout, "writing to client %s len -> %d\n", ivcipher, strlen(ivcipher));
         write(cli_sockfd, ivcipher, n2+8);
         free(ivcipher);
         if(n2 < BUFFER_SIZE-1)
@@ -406,7 +402,6 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
         break;
       }
     }
-    fprintf(stdout, "coming out of while loop\n");
   }
   return;
 }
