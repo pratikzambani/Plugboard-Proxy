@@ -311,7 +311,6 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
 
   fcntl(ssh_sockfd, F_SETFL, fcntl(ssh_sockfd, F_GETFL) | O_NONBLOCK);  
 */
-  fprintf(stdout, "main process - step6\n");
   while((cli_sockfd = accept(sockfd, (struct sockaddr *)&cli_addr, (socklen_t *)&clilen)))
   {
     //fprintf(stdout, "waiting for client connection...\n"); 
