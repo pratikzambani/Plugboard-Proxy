@@ -112,7 +112,7 @@ void client(char *dst, char *dst_port, char *key_file)
   if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     error("Error connecting to server\n");
   
-  fprintf(stderr, "connected to server...\n");
+  //fprintf(log, "connected to server...\n");
   fcntl(STDIN_FILENO, F_SETFL, fcntl(STDIN_FILENO, F_GETFL) | O_NONBLOCK);
   fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
 
@@ -246,7 +246,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
     //fprintf(stdout, "waiting for client connection...\n"); 
     if(cli_sockfd != -1)
     {
-      fprintf(stdout, "client connected...\n");
+      fprintf(stdout, "client connected cli_sockfd - %d\n", cli_sockfd);
       //fcntl(sockfd, F_SETFL, fcntl(sockfd, F_GETFL) | O_NONBLOCK);
       fcntl(cli_sockfd, F_SETFL, fcntl(cli_sockfd, F_GETFL) | O_NONBLOCK);
      
@@ -271,6 +271,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
         {
           if(n1 < 8)
           {
+          //fprintf(stdout, "buffer len < 8\n");
             close(cli_sockfd);
             close(ssh_sockfd);
             error("received buffer length is less than 8\n");
@@ -286,6 +287,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
           //fprintf(stdout, "received encryped - %s\n", buffer);
           AES_ctr128_encrypt(buffer, plaintext, n1, &aes_key, state.ivec, state.ecount, &state.num);
           //fprintf(stdout, "decryped to - %s\n", plaintext);
+        //fprintf(stdout, "sending to ssh server %s len -> %d\n", plaintext, strlen(plaintext));  
           write(ssh_sockfd, plaintext, n1);
           usleep(10000);
         }
@@ -293,6 +295,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
 //        if(n1 < BUFFER_SIZE-1)
 //          break;
       }
+//      memset(buffer, 0, BUFFER_SIZE);
 
       while((n2 = read(ssh_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
@@ -313,6 +316,8 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
       }
       if(n1 == 0)
       {
+        //close(sockfd);
+        //close(cli_sockfd);
         fprintf(stdout, "client disconnected...\n");
 	close(ssh_sockfd);
         break;

@@ -8,12 +8,13 @@ pbproxy [-l port] -k keyfile destination port
 Implementation details -
 
 1. Parsing command line arguments using getopt. 
-2. Client reads from STDIN, encrypts the data using aes in ctr mode and sends it to pbproxy server. 
-3. Client reads on socket connection with pbproxy server for receiving encrypted responses. 
-4. Pbproxy server accepts client connection, connects to ssh, sets sockets to non blocking using fcntl for IO multiplexing.
-5. Pbproxy server listens at client socket, decrypts received data and sends it to ssh socket.
-6. Pbproxy server receives data at ssh socket, encrypts it and sends it to client.
-7. Pbproxy listens for new client connections once established client disconnects.
+2. IV is the first thing sent by client to server.
+3. Client reads from STDIN, encrypts the data using aes in ctr mode and sends it to pbproxy server. 
+4. Client reads encryped responses on socket connection with pbproxy server and prints on stdout after decrypting. 
+5. Pbproxy server accepts client connection, connects to ssh, sets sockets to non blocking using fcntl for IO multiplexing.
+6. Pbproxy server listens at client socket, decrypts received data and sends it to ssh socket.
+7. Pbproxy server receives data at ssh socket, encrypts it and sends it to client.
+8. Pbproxy listens for new client connections once client disconnects.
 
 Machine details -
 
