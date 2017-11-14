@@ -161,7 +161,7 @@ void client(char *dst, char *dst_port, char *key_file)
   if (sockfd < 0)
     error("Error in opening socket");
 
-  server = gethostbyname("localhost");
+  server = gethostbyname(dst);
   if (server == NULL)
   {
     fprintf(stderr, "Error, could not find server\n");
@@ -291,7 +291,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
   clilen = sizeof(cli_addr); 
  
   fprintf(stdout, "main process - step4\n");
-  ssh_server = gethostbyname("localhost");
+  ssh_server = gethostbyname(dst);
   if (ssh_server == NULL)
   {
     error("Error, could not find ssh server\n");
@@ -359,9 +359,10 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
 //      fprintf(stdout, "while loop..\n");
       while((n1 = read(cli_sockfd, buffer, BUFFER_SIZE-1)) > 0)
       {
-//        fprintf(stdout, "received buffer %s\n", buffer);
+        fprintf(stdout, "received buffer from client %s len -> %d\n", buffer, strlen(buffer));
         if(n1 < 8)
         {
+          fprintf(stdout, "buffer len < 8\n");
           close(cli_sockfd);
           close(ssh_sockfd);
           error("received buffer length is less than 8\n");
@@ -370,7 +371,8 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
 
         memcpy(iv, buffer, 8);
         init_ctr(&state, iv);
-        AES_ctr128_encrypt(buffer+8, plaintext, n1-8, &aes_key, state.ivec, state.ecount, &state.num);        
+        AES_ctr128_encrypt(buffer+8, plaintext, n1-8, &aes_key, state.ivec, state.ecount, &state.num);
+        fprintf(stdout, "sending to ssh server %s len -> %d\n", plaintext, strlen(plaintext));  
         write(ssh_sockfd, plaintext, n1-8);
         if(n1 < BUFFER_SIZE-1)
           break;
@@ -382,7 +384,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
       {
         if(!RAND_bytes(iv, 8))
           error("Error in generating random bytes\n");
-//        fprintf(stdout, "read from ssh socket %s\n", buffer);
+        fprintf(stdout, "read from ssh socket %s len -> %d\n", buffer, strlen(buffer));
         char *ivcipher = (char *)malloc(n2+8);
         unsigned char ciphertext[n2];
 
@@ -390,6 +392,7 @@ void server(char *ps_port, char *dst, char *dst_port, char *key_file)
         init_ctr(&state, iv);
         AES_ctr128_encrypt(buffer, ciphertext, n2, &aes_key, state.ivec, state.ecount, &state.num);
         memcpy(ivcipher+8, ciphertext, n2);
+        fprintf(stdout, "writing to client %s len -> %d\n", ivcipher, strlen(ivcipher));
         write(cli_sockfd, ivcipher, n2+8);
         free(ivcipher);
         if(n2 < BUFFER_SIZE-1)
